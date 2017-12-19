@@ -33,7 +33,7 @@ MLP::MLP(int qte_amostras, int qte_teste, int num_entradas,
 		 double taxa_aprendizagem, double taxa_reducao_aprendizado, int max_epocas, double erro_min,
 		 FuncaoAtivacao * funcao_ativacao, std::vector<int>& neuronios_camadas_escondidas)
 {
-	// atribuição de variáveis
+	// atribuiÃ§Ã£o de variÃ¡veis
 	this->taxa_aprendizado = taxa_aprendizagem;
 	this->taxa_reducao_aprendizado = taxa_reducao_aprendizado;
 	this->num_camadas_escondidas = num_camadas_escondidas;
@@ -45,10 +45,10 @@ MLP::MLP(int qte_amostras, int qte_teste, int num_entradas,
 	this->neuronios_saida = neuronios_saida;
 	this->funcao_ativacao = funcao_ativacao;
 
-	// nessa parte é feita o forward: propagar as entradas
+	// nessa parte Ã© feita o forward: propagar as entradas
 
 	// adiciona sinal de entrada -1 em cada entrada
-	// o <= é por causa do limiar de ativação
+	// o <= Ã© por causa do limiar de ativaÃ§Ã£o
 	for(int i = 0; i <= num_entradas; i++)
 	{
 		SinalEntrada * sinal_entrada = new SinalEntrada(-1);
@@ -68,7 +68,7 @@ MLP::MLP(int qte_amostras, int qte_teste, int num_entradas,
 
 	adicionarCamada(camada_entrada); // adiciona a camada de entrada
 
-	// cria as camadas escondidas e faz as conexões
+	// cria as camadas escondidas e faz as conexÃµes
 	for(int k = 0; k < num_camadas_escondidas; k++)
 	{
 		Camada * camada_escondida = new Camada();
@@ -99,7 +99,7 @@ MLP::MLP(int qte_amostras, int qte_teste, int num_entradas,
 		camada_saida->receberNeuronio(neuronio);
 	}
 
-	adicionarCamada(camada_saida); // adiciona a camada de saída
+	adicionarCamada(camada_saida); // adiciona a camada de saÃ­da
 }
 
 MLP::~MLP()
@@ -167,7 +167,7 @@ void MLP::treinar(std::vector<std::vector<double> >& amostras, std::vector<std::
 				Neuronio * neuronio = camada_saida->get(j);
 
 				double sigma = (saida[j] - neuronio->gerarSaida()) *
-							   neuronio->getFuncaoAtivacao()->derivada(neuronio->getSomatorio());
+							   neuronio->getFuncaoAtivacao()->derivada(neuronio->gerarSaida());
 
 				neuronio->setSigma(sigma);
 
@@ -178,7 +178,7 @@ void MLP::treinar(std::vector<std::vector<double> >& amostras, std::vector<std::
 				}
 			}
 
-			// faz o backpropagation das outras camadas (exceto a da saída)
+			// faz o backpropagation das outras camadas (exceto a da saÃ­da)
 			for(int t = camadas.size() - 2; t >= 0; t--)
 			{
 				Camada* camada = camadas[t];
